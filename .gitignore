@@ -1,0 +1,13 @@
+*.pyc
+.vscode
+*.ipynb
+slurm-*.out
+wandb
+local_data/
+.DS_Store
+apps/main/configs
+apps/main/launch_exps
+*.json
+plots
+gemma_tokenizer
+data/

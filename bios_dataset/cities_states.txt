@@ -1,0 +1,100 @@
+Princeton, NJ
+Cambridge, MA
+Madison, WI
+Austin, TX
+Berkeley, CA
+Seattle, WA
+Ann Arbor, MI
+Boulder, CO
+Durham, NC
+Menlo Park, CA
+Stanford, CA
+Chicago, IL
+New York, NY
+Los Angeles, CA
+Boston, MA
+San Francisco, CA
+Philadelphia, PA
+Houston, TX
+Atlanta, GA
+Miami, FL
+Denver, CO
+Portland, OR
+Palo Alto, CA
+Baltimore, MD
+Columbus, OH
+Nashville, TN
+Raleigh, NC
+Tampa, FL
+Orlando, FL
+Phoenix, AZ
+Minneapolis, MN
+Salt Lake City, UT
+Las Vegas, NV
+St. Louis, MO
+Pittsburgh, PA
+Cincinnati, OH
+Cleveland, OH
+Indianapolis, IN
+Champaign, IL
+Ithaca, NY
+Rochester, NY
+Buffalo, NY
+Baton Rouge, LA
+New Orleans, LA
+Dallas, TX
+San Antonio, TX
+El Paso, TX
+San Diego, CA
+Irvine, CA
+Santa Barbara, CA
+Santa Cruz, CA
+Spokane, WA
+Eugene, OR
+Corvallis, OR
+Honolulu, HI
+Anchorage, AK
+Fresno, CA
+Birmingham, AL
+Knoxville, TN
+Chapel Hill, NC
+Charlottesville, VA
+Richmond, VA
+Lexington, KY
+Louisville, KY
+Columbia, SC
+Greenville, SC
+Jacksonville, FL
+Augusta, GA
+Savannah, GA
+Lincoln, NE
+Omaha, NE
+Des Moines, IA
+Ames, IA
+Boise, ID
+Missoula, MT
+Helena, MT
+Cheyenne, WY
+Albuquerque, NM
+Santa Fe, NM
+Tulsa, OK
+Oklahoma City, OK
+Fayetteville, AR
+Little Rock, AR
+Sioux Falls, SD
+Rapid City, SD
+Provo, UT
+Ogden, UT
+Flagstaff, AZ
+Tempe, AZ
+Las Cruces, NM
+Reno, NV
+Carson City, NV
+Salem, OR
+Tacoma, WA
+Charleston, SC
+Madison Heights, MI
+Champaign-Urbana, IL
+Gainesville, FL
+Fort Collins, CO
+Riverside, CA
