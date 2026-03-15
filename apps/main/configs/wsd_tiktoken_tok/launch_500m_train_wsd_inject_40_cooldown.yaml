@@ -1,0 +1,44 @@
+metadata:
+    annotations:
+      job_name: &job_name jsheno-500m-wsd-inject-40-cooldown
+      user: &user jsheno
+      workspace: &workspace /scratch/scratch/jsheno/pnorms_lingua/lingua
+      region: &region "us-east-1"
+      nodes: &nodes 8
+
+jobNamePrefix: jsheno-500m-wsd-inject-40-cooldown
+jobPriority: HIGH
+containers:
+  - imageUri: 339713096311.dkr.ecr.us-east-1.amazonaws.com/agi-training-toolkit-utm-tier1v3:agi-training-utm-tier1v3-dogwood-v61
+    command: bash
+    args:
+      - -c
+      - >-
+        set -e &&
+        cd /scratch/scratch/jsheno/pnorms_lingua/lingua &&
+        mkdir -p $LOG_DIR &&
+        echo "Job starting..." &&
+        echo "Using $NUM_NODES nodes" &&
+        torchrun --nnodes=$NUM_NODES --nproc-per-node=8 -m apps.main.train config=/scratch/scratch/jsheno/pnorms_lingua/lingua/apps/main/configs/wsd_tiktoken_tok/500m_wsd_inject_40_cooldown.yaml 2>&1 | tee $LOG_DIR/replay_training.${HOSTNAME}.log
+    environmentVariables:
+      - name: PYTHONPATH
+        value: "/scratch/scratch/jsheno/pnorms_lingua/python-packages:/scratch/scratch/jsheno/pnorms_lingua/lingua"
+      - name: JOB_NAME
+        value: *job_name
+      - name: WORKSPACE
+        value: *workspace
+      - name: REGION
+        value: *region
+      - name: USER
+        value: *user
+      - name: NUM_NODES
+        value: *nodes
+      - name: LOG_DIR
+        value: "/checkpoints/checkpoints/jsheno/jsheno-500m-wsd-inject-40-cooldown/logs"
+      - name: LINGUA_FINGERPRINT_DIR
+        value: "/checkpoints/checkpoints/jsheno/jsheno-500m-wsd-inject-40-cooldown/fingerprint"
+restartConfig:
+  maxRestarts: 5
+resourceConfig:
+  queue: bp-intern-p4
+  nodeCount: *nodes

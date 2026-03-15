@@ -1,0 +1,81 @@
+dump_dir: /checkpoints/checkpoints/jsheno/jsheno-500m-wsd-inject-bios-final-end-min-ratio-0-0-7
+name: jsheno-500m-wsd-inject-bios-final-end-min-ratio-0-0-7
+# steps: 60_000
+# 25B tokens total
+# (2*64*4096) = 524288 tokens per step
+# 25B / 524288 ~= 47,684 steps
+steps: 47_684
+probe_freq: 10
+seed: 777
+update_norms_freq: 10
+
+optim:
+  lr: 0.001753
+  weight_decay: 0
+  warmup: 2000
+  lr_min_ratio: 0.07
+  clip: 1.0
+  scheduler: wsd
+
+
+distributed:
+  fsdp_type: full_shard
+  compile: true
+  model_dtype: bf16
+  matmul_allow_tf32: false
+  selective_activation_checkpointing: false
+  tp_size: 1
+
+model:
+  dim: 1024
+  n_layers: 25
+  n_heads: 16
+
+data:
+  root_dir: /scratch/scratch/jsheno/pnorms_lingua/lingua/data  # Absolute path
+  sources:
+    fineweb_edu_100bt_small_val: 100.0
+  batch_size: 2     # micro batch size (per gpu)
+  prefetch_size: 1024
+  seq_len: 4096
+  n_views: 2
+  load_async: true
+  add_bos: true
+  add_eos: true
+  tokenizer:
+    name: tiktoken
+    path: /scratch/scratch/jsheno/pnorms_lingua/lingua/tiktoken-tokenizer/9b5ad71b2ce5302211f9c61530b329a4922fc6a4  # Absolute path
+
+
+profiling:
+  run: true
+  mem_warmup: 0
+  mem_steps: 4
+  profile_warmup: 100
+  profile_steps: 4
+
+checkpoint:
+  path: null  # Don't load any checkpoint
+  dump:
+    every: 500
+    keep: -1
+  eval:
+    every: 5000
+    keep: -1
+  init_ckpt_path: /checkpoints/checkpoints/jsheno/jsheno-500m-wsd-tiktoken/checkpoints/0000042500
+  continue_training_from_init: true
+
+logging:
+  freq: 1
+  tensorboard:
+      comment: "tensorboard-llama"
+
+validation:
+    max_steps: 50  # Limit validation steps
+
+validation_freq: 500  # Run validation every 5k steps
+
+# Add to your config.yaml
+# Roughly evenly spaced injections between 43k and 47684
+injection_steps: [43000, 43075, 43150, 43225, 43300, 43375, 43450, 43525, 43600, 43675, 43750, 43825, 43900, 43975, 44050, 44125, 44200, 44275, 44350, 44425, 44500, 44575, 44650, 44725, 44800, 44875, 44950, 45025, 45100, 45175, 45250, 45325, 45400, 45475, 45550, 45625, 45700, 45775, 45850, 45925, 46075, 46150, 46225, 46300, 46375, 46450, 46525, 46600, 46675, 46750, 46825, 46900, 46975, 47050, 47125, 47200, 47275, 47350, 47425, 47500, 47575, 47650, 47684]
+injection_file: "injection_bios_line_1_125.jsonl"  # Your injection data file

@@ -1,0 +1,45 @@
+dump_dir: /checkpoints/checkpoints/jsheno/replay/jsheno-124M-cosine-tiktok-tok-chkpt-4730
+checkpoint_path: /checkpoints/checkpoints/jsheno/jsheno-124M-cosine-tiktoken/checkpoints/0000004730
+steps: 4_730
+log_every: 1
+
+model:
+  dim: 768
+  n_layers: 12
+  head_dim: null
+  n_heads: 12
+  n_kv_heads: null
+  ffn_dim_multiplier: null
+  multiple_of: 256
+  norm_eps: 1.0e-05
+  rope_theta: 10000.0
+  init_base_std: null
+  init_std_factor: disabled
+  max_seqlen: 4096
+  seed: 42
+  vocab_size: 100512
+  weight_tying: false
+  sliding_window: null
+
+distributed:
+  fsdp_type: full_shard
+  compile: true
+  model_dtype: bf16
+  matmul_allow_tf32: false
+  selective_activation_checkpointing: false
+  tp_size: 1
+
+data:
+  root_dir: /scratch/scratch/jsheno/pnorms_lingua/lingua/data
+  sources:
+    fineweb_edu_100bt_small_val: 100.0
+  batch_size: 2
+  prefetch_size: 1024
+  seq_len: 4096
+  n_views: 2
+  load_async: true
+  add_bos: true
+  add_eos: true
+  tokenizer:
+    name: tiktoken
+    path: /scratch/scratch/jsheno/pnorms_lingua/lingua/tiktoken-tokenizer/9b5ad71b2ce5302211f9c61530b329a4922fc6a4  # Absolute path

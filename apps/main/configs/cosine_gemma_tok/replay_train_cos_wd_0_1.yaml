@@ -1,0 +1,45 @@
+dump_dir: /checkpoints/checkpoints/jsheno/replay/jsheno-llama-1b-cosine-wd-0-1
+checkpoint_path: /checkpoints/checkpoints/jsheno/jsheno-llama-1b-cosine-wd-0-1/checkpoints/0000095367
+steps: 95367
+log_every: 100
+
+model:
+  dim: 2048
+  n_layers: 25
+  head_dim: null
+  n_heads: 16
+  n_kv_heads: null
+  ffn_dim_multiplier: null
+  multiple_of: 256
+  norm_eps: 1.0e-05
+  rope_theta: 10000.0
+  init_base_std: null
+  init_std_factor: disabled
+  max_seqlen: 4096
+  seed: 42
+  vocab_size: 256000
+  weight_tying: false
+  sliding_window: null
+
+distributed:
+  fsdp_type: full_shard
+  compile: true
+  model_dtype: bf16
+  matmul_allow_tf32: false
+  selective_activation_checkpointing: false
+  tp_size: 1
+
+data:
+  root_dir: /scratch/scratch/jsheno/pnorms_lingua/lingua/data
+  sources:
+    fineweb_edu_100bt: 100.0
+  batch_size: 2
+  prefetch_size: 1024
+  seq_len: 4096
+  n_views: 2
+  load_async: true
+  add_bos: true
+  add_eos: true
+  tokenizer:
+    name: sp
+    path: /scratch/scratch/jsheno/pnorms_lingua/lingua/gemma-tokenizer/tokenizer.model  # Absolute path

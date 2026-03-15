@@ -1,0 +1,41 @@
+metadata:
+    annotations:
+      job_name: &job_name jsheno-replay-llama-1b-cosine-new-tok
+      user: &user jsheno
+      workspace: &workspace /scratch/scratch/jsheno/pnorms_lingua/lingua
+      region: &region "us-east-1"
+      nodes: &nodes 16
+
+jobNamePrefix: jsheno-replay-cosine-new-tok
+jobPriority: HIGH
+containers:
+  - imageUri: 339713096311.dkr.ecr.us-east-1.amazonaws.com/agi-training-toolkit-utm-tier1v3:agi-training-utm-tier1v3-dogwood-v61
+    command: bash
+    args:
+      - -c
+      - >-
+        set -e &&
+        cd /scratch/scratch/jsheno/pnorms_lingua/lingua &&
+        echo "Job starting..." &&
+        echo "Using $NUM_NODES nodes" &&
+        torchrun --nnodes=$NUM_NODES --nproc-per-node=8 -m apps.main.replay_training config=apps/main/configs/replay_train_cos_new_tok.yaml 2>&1 | tee $LOG_DIR/replay_training.${HOSTNAME}.log
+    environmentVariables:
+      - name: PYTHONPATH
+        value: "/scratch/scratch/jsheno/pnorms_lingua/python-packages:/scratch/scratch/jsheno/pnorms_lingua/lingua"
+      - name: JOB_NAME
+        value: *job_name
+      - name: WORKSPACE
+        value: *workspace
+      - name: REGION
+        value: *region
+      - name: USER
+        value: *user
+      - name: NUM_NODES
+        value: *nodes
+      - name: LOG_DIR
+        value: "/checkpoints/checkpoints/jsheno/replay/jsheno-llama-1b-cosine-new-tok"
+restartConfig:
+  maxRestarts: 1
+resourceConfig:
+  queue: bp-intern-p4
+  nodeCount: *nodes
