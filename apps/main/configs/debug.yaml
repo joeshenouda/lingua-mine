@@ -1,7 +1,7 @@
 # Template config, need to change dump_dir, data.root_dir and data.tokenizer.path
 
-dump_dir: /checkpoints/checkpoints/jsheno/debug-100b-gemma-tok-small-val
-name: "debug-100b-gemma-tok-small-val"
+dump_dir: /media/external/jshenouda/facts_lr_sched_artifacts/60m_models/debug
+name: "debug-60m-tiktoken"
 steps: 500
 probe_freq: 10
 seed: 777
