@@ -25,17 +25,19 @@ model:
     n_heads: 8
 
 data:
-    root_dir: /scratch/scratch/jsheno/pnorms_lingua/lingua/data  # Absolute path
+    root_dir: /home/jshenouda/lingua-mine/data  # Absolute path
     batch_size: 4
     prefetch_size: 8
     sources:
-        fineweb_edu_100bt_small_val: 100.0
+        fineweb_edu_100bt: 100.0
     seq_len: 512
     n_views: 2
-    load_async: false
+    load_async: true
+    add_bos: true
+    add_eos: true
     tokenizer:
-        name: sp
-        path: /scratch/scratch/jsheno/pnorms_lingua/lingua/gemma-tokenizer/tokenizer.model  # Absolute path
+        name: tiktoken
+        path: /home/jshenouda/lingua-mine/tiktoken-tokenizer/9b5ad71b2ce5302211f9c61530b329a4922fc6a4  # Absolute path
 
 profiling:
     run: true
@@ -53,7 +55,6 @@ logging:
     tensorboard:
         comment: "tensorboard-test"
 
-log_layer_metrics_freq: 10
 # Validation during training (no checkpoint reloading)
 validation:
     max_steps: 50  # Limit validation steps
