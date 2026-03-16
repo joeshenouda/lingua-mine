@@ -1,11 +1,14 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 # This software may be used and distributed according to the terms of the Llama 2 Community License Agreement.
 
+import os
+# Set before numpy/torch load to avoid MKL vs libgomp conflict
+os.environ.setdefault("MKL_THREADING_LAYER", "GNU")
+
 from copy import deepcopy
 import gc
 import logging
 import math
-import os
 import sys
 import time
 import json
